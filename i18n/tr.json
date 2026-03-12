@@ -1,0 +1,131 @@
+{
+  "app": {
+    "name": "VitaFlow"
+  },
+  "auth": {
+    "login": "Giris Yap",
+    "register": "Kayit Ol",
+    "email": "E-posta",
+    "password": "Sifre",
+    "name": "Ad Soyad",
+    "forgotPassword": "Sifreni mi unuttun?",
+    "noAccount": "Hesabin yok mu?",
+    "hasAccount": "Zaten hesabin var mi?",
+    "loginSuccess": "Tekrar hos geldin!",
+    "registerSuccess": "Hesap olusturuldu!"
+  },
+  "tabs": {
+    "dashboard": "CV'lerim",
+    "templates": "Sablonlar",
+    "settings": "Ayarlar"
+  },
+  "dashboard": {
+    "title": "CV'lerim",
+    "empty": "Henuz CV yok",
+    "emptyDesc": "Ilk profesyonel CV'ni olustur",
+    "createNew": "Yeni CV Olustur",
+    "lastEdited": "Son duzenleme"
+  },
+  "templates": {
+    "title": "Sablonlar",
+    "free": "Ucretsiz",
+    "premium": "Premium",
+    "useTemplate": "Sablonu Kullan",
+    "locked": "Sadece Premium"
+  },
+  "editor": {
+    "personalInfo": "Kisisel Bilgiler",
+    "experience": "Is Deneyimi",
+    "education": "Egitim",
+    "skills": "Yetenekler",
+    "languages": "Diller",
+    "certifications": "Sertifikalar",
+    "summary": "Ozet",
+    "next": "Ileri",
+    "back": "Geri",
+    "save": "Kaydet",
+    "preview": "Onizleme",
+    "fullName": "Ad Soyad",
+    "phone": "Telefon",
+    "location": "Konum",
+    "linkedin": "LinkedIn URL",
+    "website": "Web Sitesi",
+    "company": "Sirket",
+    "position": "Pozisyon",
+    "startDate": "Baslangic Tarihi",
+    "endDate": "Bitis Tarihi",
+    "current": "Hala burada calisiyorum",
+    "description": "Aciklama",
+    "institution": "Kurum",
+    "degree": "Derece",
+    "field": "Bolum",
+    "gpa": "Not Ortalamasi",
+    "addExperience": "Deneyim Ekle",
+    "addEducation": "Egitim Ekle",
+    "addSkill": "Yetenek Ekle",
+    "addLanguage": "Dil Ekle",
+    "addCertification": "Sertifika Ekle",
+    "skillName": "Yetenek adi",
+    "languageName": "Dil",
+    "level": "Seviye",
+    "certName": "Sertifika Adi",
+    "issuer": "Veren Kurum",
+    "date": "Tarih",
+    "summaryPlaceholder": "Profesyonel bir ozet yazin..."
+  },
+  "ai": {
+    "generate": "AI Olustur",
+    "optimize": "AI Optimize Et",
+    "generating": "Olusturuluyor...",
+    "optimizing": "Optimize ediliyor...",
+    "limitReached": "Gunluk AI limiti doldu",
+    "upgradeForMore": "Sinirsiz AI icin Premium'a yukselt"
+  },
+  "ats": {
+    "title": "ATS Skoru",
+    "check": "ATS Skoru Kontrol Et",
+    "checking": "Analiz ediliyor...",
+    "score": "Skorun",
+    "suggestions": "Oneriler",
+    "excellent": "Mukemmel",
+    "good": "Iyi",
+    "needsWork": "Gelistirilmeli",
+    "poor": "Zayif"
+  },
+  "preview": {
+    "title": "Onizleme",
+    "exportPDF": "PDF Indir",
+    "share": "Paylas",
+    "watermark": "VitaFlow ile olusturuldu"
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "account": "Hesap",
+    "language": "Dil",
+    "premium": "Premium",
+    "upgrade": "Premium'a Yukselt",
+    "logout": "Cikis Yap",
+    "version": "Surum"
+  },
+  "paywall": {
+    "title": "Premium'a Gec",
+    "subtitle": "Tum ozelliklerin kilidini ac",
+    "feature1": "Sinirsiz CV",
+    "feature2": "10+ sablon",
+    "feature3": "Sinirsiz AI yardimcisi",
+    "feature4": "Detayli ATS analizi",
+    "feature5": "Temiz PDF",
+    "price": "$4.99/ay",
+    "subscribe": "Simdi Abone Ol",
+    "restore": "Satin Alimlari Geri Yukle"
+  },
+  "common": {
+    "cancel": "Iptal",
+    "delete": "Sil",
+    "confirm": "Onayla",
+    "loading": "Yukleniyor...",
+    "error": "Hata",
+    "success": "Basarili",
+    "retry": "Tekrar Dene"
+  }
+}

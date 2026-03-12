@@ -1,0 +1,131 @@
+{
+  "app": {
+    "name": "VitaFlow"
+  },
+  "auth": {
+    "login": "Log In",
+    "register": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "name": "Full Name",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "loginSuccess": "Welcome back!",
+    "registerSuccess": "Account created!"
+  },
+  "tabs": {
+    "dashboard": "My CVs",
+    "templates": "Templates",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "title": "My Resumes",
+    "empty": "No resumes yet",
+    "emptyDesc": "Create your first professional resume",
+    "createNew": "Create New Resume",
+    "lastEdited": "Last edited"
+  },
+  "templates": {
+    "title": "Templates",
+    "free": "Free",
+    "premium": "Premium",
+    "useTemplate": "Use Template",
+    "locked": "Premium Only"
+  },
+  "editor": {
+    "personalInfo": "Personal Info",
+    "experience": "Experience",
+    "education": "Education",
+    "skills": "Skills",
+    "languages": "Languages",
+    "certifications": "Certifications",
+    "summary": "Summary",
+    "next": "Next",
+    "back": "Back",
+    "save": "Save",
+    "preview": "Preview",
+    "fullName": "Full Name",
+    "phone": "Phone",
+    "location": "Location",
+    "linkedin": "LinkedIn URL",
+    "website": "Website",
+    "company": "Company",
+    "position": "Position",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "current": "Currently working here",
+    "description": "Description",
+    "institution": "Institution",
+    "degree": "Degree",
+    "field": "Field of Study",
+    "gpa": "GPA",
+    "addExperience": "Add Experience",
+    "addEducation": "Add Education",
+    "addSkill": "Add Skill",
+    "addLanguage": "Add Language",
+    "addCertification": "Add Certification",
+    "skillName": "Skill name",
+    "languageName": "Language",
+    "level": "Level",
+    "certName": "Certificate Name",
+    "issuer": "Issuer",
+    "date": "Date",
+    "summaryPlaceholder": "Write a professional summary..."
+  },
+  "ai": {
+    "generate": "AI Generate",
+    "optimize": "AI Optimize",
+    "generating": "Generating...",
+    "optimizing": "Optimizing...",
+    "limitReached": "Daily AI limit reached",
+    "upgradeForMore": "Upgrade to Premium for unlimited AI"
+  },
+  "ats": {
+    "title": "ATS Score",
+    "check": "Check ATS Score",
+    "checking": "Analyzing...",
+    "score": "Your Score",
+    "suggestions": "Suggestions",
+    "excellent": "Excellent",
+    "good": "Good",
+    "needsWork": "Needs Work",
+    "poor": "Poor"
+  },
+  "preview": {
+    "title": "Preview",
+    "exportPDF": "Export PDF",
+    "share": "Share",
+    "watermark": "Created with VitaFlow"
+  },
+  "settings": {
+    "title": "Settings",
+    "account": "Account",
+    "language": "Language",
+    "premium": "Premium",
+    "upgrade": "Upgrade to Premium",
+    "logout": "Log Out",
+    "version": "Version"
+  },
+  "paywall": {
+    "title": "Go Premium",
+    "subtitle": "Unlock all features",
+    "feature1": "Unlimited resumes",
+    "feature2": "All 10+ templates",
+    "feature3": "Unlimited AI assistance",
+    "feature4": "Detailed ATS analysis",
+    "feature5": "Clean PDF export",
+    "price": "$4.99/month",
+    "subscribe": "Subscribe Now",
+    "restore": "Restore Purchases"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "retry": "Retry"
+  }
+}
