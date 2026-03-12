@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert, Platform } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import { WebView } from 'react-native-webview';
-import * as Print from 'expo-print';
-import * as Sharing from 'expo-sharing';
 import { useQuery } from '@tanstack/react-query';
 import { getResume } from '@/services/resumes';
 import { getTemplate } from '@/services/templates';
@@ -12,6 +9,11 @@ import { useAuthStore } from '@/stores/authStore';
 import { Button } from '@/components/ui/Button';
 import { generateResumeHTML } from '@/utils/generateHTML';
 import { theme } from '@/constants/Colors';
+
+function NativeWebView({ html }: { html: string }) {
+  const WebView = require('react-native-webview').WebView;
+  return <WebView source={{ html }} style={{ flex: 1, backgroundColor: '#fff' }} scalesPageToFit scrollEnabled />;
+}
 
 export default function PreviewScreen() {
   const { t } = useTranslation();
@@ -43,12 +45,24 @@ export default function PreviewScreen() {
     if (!html) return;
     setExporting(true);
     try {
-      const { uri } = await Print.printToFileAsync({
-        html,
-        width: 595,
-        height: 842,
-      });
-      await Sharing.shareAsync(uri, { mimeType: 'application/pdf', UTI: 'com.adobe.pdf' });
+      if (Platform.OS === 'web') {
+        // Web: open print dialog
+        const w = window.open('', '_blank');
+        if (w) {
+          w.document.write(html);
+          w.document.close();
+          w.print();
+        }
+      } else {
+        const Print = await import('expo-print');
+        const Sharing = await import('expo-sharing');
+        const { uri } = await Print.printToFileAsync({
+          html,
+          width: 595,
+          height: 842,
+        });
+        await Sharing.shareAsync(uri, { mimeType: 'application/pdf', UTI: 'com.adobe.pdf' });
+      }
     } catch (err: any) {
       Alert.alert(t('common.error'), err.message);
     } finally {
@@ -71,12 +85,14 @@ export default function PreviewScreen() {
 
       <View style={styles.previewContainer}>
         {html ? (
-          <WebView
-            source={{ html }}
-            style={styles.webview}
-            scalesPageToFit
-            scrollEnabled
-          />
+          Platform.OS === 'web' ? (
+            <iframe
+              srcDoc={html}
+              style={{ flex: 1, border: 'none', width: '100%', height: '100%' } as any}
+            />
+          ) : (
+            <NativeWebView html={html} />
+          )
         ) : (
           <Text style={styles.loading}>{t('common.loading')}</Text>
         )}

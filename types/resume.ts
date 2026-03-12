@@ -44,6 +44,7 @@ export interface Certification {
 
 export interface ResumeData {
   personalInfo?: PersonalInfo;
+  summary?: string;
   experience?: Experience[];
   education?: Education[];
   skills?: string[];

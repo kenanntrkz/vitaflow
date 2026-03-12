@@ -1,27 +1,27 @@
-import * as SecureStore from 'expo-secure-store';
+import { getItem, setItem, deleteItem } from '@/utils/storage';
 
 const API_URL = 'https://vitaflow-api.kenanturkoz.cloud';
 
 let accessToken: string | null = null;
 
 export async function loadToken() {
-  accessToken = await SecureStore.getItemAsync('accessToken');
+  accessToken = await getItem('accessToken');
 }
 
 export async function setTokens(access: string, refresh: string) {
   accessToken = access;
-  await SecureStore.setItemAsync('accessToken', access);
-  await SecureStore.setItemAsync('refreshToken', refresh);
+  await setItem('accessToken', access);
+  await setItem('refreshToken', refresh);
 }
 
 export async function clearTokens() {
   accessToken = null;
-  await SecureStore.deleteItemAsync('accessToken');
-  await SecureStore.deleteItemAsync('refreshToken');
+  await deleteItem('accessToken');
+  await deleteItem('refreshToken');
 }
 
 async function refreshAccessToken(): Promise<boolean> {
-  const refreshToken = await SecureStore.getItemAsync('refreshToken');
+  const refreshToken = await getItem('refreshToken');
   if (!refreshToken) return false;
 
   try {

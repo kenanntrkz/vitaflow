@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView, Platform } from 'react-native';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@/stores/authStore';
@@ -10,18 +10,25 @@ export default function SettingsScreen() {
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
 
-  const handleLogout = () => {
-    Alert.alert(t('settings.logout'), t('common.confirm') + '?', [
-      { text: t('common.cancel'), style: 'cancel' },
-      {
-        text: t('settings.logout'),
-        style: 'destructive',
-        onPress: async () => {
-          await logout();
-          router.replace('/(auth)/login');
+  const handleLogout = async () => {
+    if (Platform.OS === 'web') {
+      if (window.confirm(t('settings.logout') + '?')) {
+        await logout();
+        router.replace('/(auth)/login');
+      }
+    } else {
+      Alert.alert(t('settings.logout'), t('common.confirm') + '?', [
+        { text: t('common.cancel'), style: 'cancel' },
+        {
+          text: t('settings.logout'),
+          style: 'destructive',
+          onPress: async () => {
+            await logout();
+            router.replace('/(auth)/login');
+          },
         },
-      },
-    ]);
+      ]);
+    }
   };
 
   const toggleLanguage = () => {

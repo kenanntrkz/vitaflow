@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { View, Text, StyleSheet, Dimensions, FlatList, Animated } from 'react-native';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-import * as SecureStore from 'expo-secure-store';
+import { setItem } from '@/utils/storage';
 import { Button } from '@/components/ui/Button';
 import { theme } from '@/constants/Colors';
 
@@ -42,13 +42,13 @@ export default function OnboardingScreen() {
     if (currentIndex < SLIDES.length - 1) {
       flatListRef.current?.scrollToIndex({ index: currentIndex + 1 });
     } else {
-      await SecureStore.setItemAsync('onboarding_done', 'true');
+      await setItem('onboarding_done', 'true');
       router.replace('/(auth)/login');
     }
   };
 
   const handleSkip = async () => {
-    await SecureStore.setItemAsync('onboarding_done', 'true');
+    await setItem('onboarding_done', 'true');
     router.replace('/(auth)/login');
   };
 

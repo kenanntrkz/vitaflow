@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import * as SecureStore from 'expo-secure-store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { getItem } from '@/utils/storage';
 import { useAuthStore } from '@/stores/authStore';
 import '@/i18n';
 import 'react-native-reanimated';
@@ -25,7 +25,7 @@ export default function RootLayout() {
   useEffect(() => {
     Promise.all([
       loadSession(),
-      SecureStore.getItemAsync('onboarding_done').then((v) => setOnboardingDone(v === 'true')),
+      getItem('onboarding_done').then((v) => setOnboardingDone(v === 'true')),
     ]).finally(() => {
       SplashScreen.hideAsync();
     });

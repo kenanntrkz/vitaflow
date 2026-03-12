@@ -17,8 +17,9 @@ export function generateResumeHTML(data: ResumeData, templateHtml: string, showW
   let content = '';
 
   // Summary
-  if (pi.summary) {
-    content += `<div class="section"><p style="font-size:14px">${pi.summary}</p></div>`;
+  if (data.summary || pi.summary) {
+    const summaryText = data.summary || pi.summary || '';
+    content += `<div class="section"><h2 class="section-title">Summary</h2><div class="summary-text">${summaryText}</div></div>`;
   }
 
   // Experience
@@ -42,6 +43,7 @@ export function generateResumeHTML(data: ResumeData, templateHtml: string, showW
       content += `<div class="entry">
         <div class="entry-title">${edu.degree}${edu.field ? ' in ' + edu.field : ''}</div>
         <div class="entry-meta">${edu.institution} · ${edu.endDate || edu.startDate}</div>
+        ${edu.gpa ? `<div class="entry-desc">GPA: ${edu.gpa}</div>` : ''}
       </div>`;
     }
     content += '</div>';
@@ -60,7 +62,8 @@ export function generateResumeHTML(data: ResumeData, templateHtml: string, showW
   if (data.languages?.length) {
     content += '<div class="section"><h2 class="section-title">Languages</h2>';
     for (const lang of data.languages) {
-      content += `<div class="entry"><span class="entry-title">${lang.name}</span> — ${lang.level}</div>`;
+      const name = (lang as any).language || lang.name || '';
+      content += `<div class="lang-row"><span class="lang-name">${name}</span><span class="lang-level">${lang.level}</span></div>`;
     }
     content += '</div>';
   }
@@ -69,7 +72,7 @@ export function generateResumeHTML(data: ResumeData, templateHtml: string, showW
   if (data.certifications?.length) {
     content += '<div class="section"><h2 class="section-title">Certifications</h2>';
     for (const cert of data.certifications) {
-      content += `<div class="entry"><span class="entry-title">${cert.name}</span>${cert.issuer ? ' · ' + cert.issuer : ''}${cert.date ? ' · ' + cert.date : ''}</div>`;
+      content += `<div class="cert-row"><span class="entry-title">${cert.name}</span><span class="entry-meta"> · ${cert.issuer || ''}${cert.date ? ' · ' + cert.date : ''}</span></div>`;
     }
     content += '</div>';
   }
@@ -77,9 +80,16 @@ export function generateResumeHTML(data: ResumeData, templateHtml: string, showW
   html = html.replace(/\{\{content\}\}/g, content);
 
   // Watermark for free users
-  const watermark = showWatermark
-    ? '<div style="position:fixed;bottom:10px;right:10px;font-size:10px;color:#ccc;font-family:sans-serif;">Created with VitaFlow</div>'
-    : '';
+  if (showWatermark) {
+    const watermark = '<div style="position:fixed;bottom:10px;right:10px;font-size:10px;color:#ccc;font-family:sans-serif;">Created with VitaFlow</div>';
+    html = html.replace('</body>', `${watermark}</body>`);
+  }
 
-  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>${html}${watermark}</body></html>`;
+  // If template is already a full HTML document, return as-is
+  if (html.includes('<!DOCTYPE') || html.includes('<html')) {
+    return html;
+  }
+
+  // Legacy templates: wrap in basic HTML shell
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body>${html}</body></html>`;
 }
