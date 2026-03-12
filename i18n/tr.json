@@ -71,7 +71,8 @@
     "certName": "Sertifika Adi",
     "issuer": "Veren Kurum",
     "date": "Tarih",
-    "summaryPlaceholder": "Profesyonel bir ozet yazin..."
+    "summaryPlaceholder": "Profesyonel bir ozet yazin...",
+    "skillsHint": "\"React\", \"Python\", \"Proje Yonetimi\" gibi yetenekler ekleyin"
   },
   "ai": {
     "generate": "AI Olustur",
@@ -79,7 +80,11 @@
     "generating": "Olusturuluyor...",
     "optimizing": "Optimize ediliyor...",
     "limitReached": "Gunluk AI limiti doldu",
-    "upgradeForMore": "Sinirsiz AI icin Premium'a yukselt"
+    "upgradeForMore": "Sinirsiz AI icin Premium'a yukselt",
+    "suggestion": "AI Onerisi",
+    "apply": "Uygula",
+    "suggestSkills": "AI Yetenek Oner",
+    "summaryHint": "AI, deneyim ve yeteneklerinize gore profesyonel bir ozet olusturur"
   },
   "ats": {
     "title": "ATS Skoru",
@@ -90,7 +95,15 @@
     "excellent": "Mukemmel",
     "good": "Iyi",
     "needsWork": "Gelistirilmeli",
-    "poor": "Zayif"
+    "poor": "Zayif",
+    "contact": "Iletisim Bilgileri",
+    "experienceSection": "Is Deneyimi",
+    "educationSection": "Egitim",
+    "skillsSection": "Yetenekler",
+    "formatting": "Bicimlendirme",
+    "recheck": "Tekrar Kontrol Et",
+    "checkDesc": "CV'nizin ATS sistemlerinde ne kadar iyi performans gosterdigini kontrol edin",
+    "detailedBreakdown": "Detayli Analiz"
   },
   "preview": {
     "title": "Onizleme",
@@ -117,7 +130,19 @@
     "feature5": "Temiz PDF",
     "price": "$4.99/ay",
     "subscribe": "Simdi Abone Ol",
-    "restore": "Satin Alimlari Geri Yukle"
+    "restore": "Satin Alimlari Geri Yukle",
+    "cancelAnytime": "Istediginiz zaman iptal edin"
+  },
+  "onboarding": {
+    "slide1Title": "AI Destekli Yazim",
+    "slide1Desc": "AI, kariyerinize ozel etkileyici madde isaretleri, ozetler ve aciklamalar olusturur",
+    "slide2Title": "ATS'yi Gecin",
+    "slide2Desc": "Aninda skor alin ve Basvuru Takip Sistemlerini gecmek icin uygulanabilir oneriler edinin",
+    "slide3Title": "Profesyonel PDF",
+    "slide3Desc": "10+ sik sablondan secim yapin ve piksel mukemmelliyetinde PDF'leri aninda disa aktarin",
+    "skip": "Atla",
+    "next": "Ileri",
+    "getStarted": "Basla"
   },
   "common": {
     "cancel": "Iptal",

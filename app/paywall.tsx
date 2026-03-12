@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/Button';
+import { useSubscriptionStore } from '@/stores/subscriptionStore';
 import { theme } from '@/constants/Colors';
 
 const FEATURES = [
@@ -14,10 +15,14 @@ const FEATURES = [
 
 export default function PaywallScreen() {
   const { t } = useTranslation();
+  const { purchase, restore, isPurchasing, isRestoring } = useSubscriptionStore();
 
-  const handleSubscribe = () => {
-    // TODO: RevenueCat integration
-    // Purchases.purchaseProduct('vitaflow_premium_monthly');
+  const handleSubscribe = async () => {
+    await purchase();
+  };
+
+  const handleRestore = async () => {
+    await restore();
   };
 
   return (
@@ -45,11 +50,23 @@ export default function PaywallScreen() {
 
         <View style={styles.priceBox}>
           <Text style={styles.price}>{t('paywall.price')}</Text>
-          <Text style={styles.priceSub}>Cancel anytime</Text>
+          <Text style={styles.priceSub}>{t('paywall.cancelAnytime')}</Text>
         </View>
 
-        <Button title={t('paywall.subscribe')} onPress={handleSubscribe} size="lg" style={{ marginTop: 24 }} />
-        <Button title={t('paywall.restore')} variant="ghost" onPress={() => {}} style={{ marginTop: 12 }} />
+        <Button
+          title={t('paywall.subscribe')}
+          onPress={handleSubscribe}
+          loading={isPurchasing}
+          size="lg"
+          style={{ marginTop: 24 }}
+        />
+        <Button
+          title={t('paywall.restore')}
+          variant="ghost"
+          onPress={handleRestore}
+          loading={isRestoring}
+          style={{ marginTop: 12 }}
+        />
       </ScrollView>
     </View>
   );

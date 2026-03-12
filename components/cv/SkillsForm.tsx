@@ -1,22 +1,47 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { useResumeEditorStore } from '@/stores/resumeEditorStore';
+import { generateContent } from '@/services/ai';
 import { theme } from '@/constants/Colors';
 
 export function SkillsForm() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const skills = useResumeEditorStore((s) => s.data.skills) || [];
   const { addSkill, removeSkill } = useResumeEditorStore();
   const [newSkill, setNewSkill] = useState('');
+  const [suggesting, setSuggesting] = useState(false);
+  const data = useResumeEditorStore((s) => s.data);
 
   const handleAdd = () => {
     const trimmed = newSkill.trim();
     if (trimmed && !skills.includes(trimmed)) {
       addSkill(trimmed);
       setNewSkill('');
+    }
+  };
+
+  const handleAISuggest = async () => {
+    setSuggesting(true);
+    try {
+      const jobTitle = data.experience?.[0]?.position;
+      const { text } = await generateContent({
+        section: 'skills',
+        context: { jobTitle, skills },
+        locale: i18n.language,
+      });
+      const suggested = text.split(',').map((s: string) => s.trim()).filter((s: string) => s && !skills.includes(s));
+      suggested.forEach((s: string) => addSkill(s));
+    } catch (err: any) {
+      if (err.message?.includes('limit')) {
+        Alert.alert(t('ai.limitReached'), t('ai.upgradeForMore'));
+      } else {
+        Alert.alert(t('common.error'), err.message);
+      }
+    } finally {
+      setSuggesting(false);
     }
   };
 
@@ -42,8 +67,17 @@ export function SkillsForm() {
           </TouchableOpacity>
         ))}
       </View>
+      <Button
+        title={suggesting ? t('ai.generating') : t('ai.suggestSkills')}
+        variant="secondary"
+        onPress={handleAISuggest}
+        loading={suggesting}
+        disabled={suggesting}
+        size="sm"
+        style={{ marginTop: 16 }}
+      />
       {skills.length === 0 && (
-        <Text style={styles.hint}>Add skills like "React", "Python", "Project Management"</Text>
+        <Text style={styles.hint}>{t('editor.skillsHint')}</Text>
       )}
     </View>
   );

@@ -5,18 +5,25 @@ import { useTranslation } from 'react-i18next';
 import { getResumes } from '@/services/resumes';
 import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { useAuthStore } from '@/stores/authStore';
+import { canCreateResume } from '@/stores/subscriptionStore';
 import { theme } from '@/constants/Colors';
 import { timeAgo } from '@/utils/formatDate';
 import type { Resume } from '@/types/resume';
 
 export default function DashboardScreen() {
   const { t } = useTranslation();
+  const isPremium = useAuthStore((s) => s.user?.is_premium);
   const { data: resumes, isLoading, refetch } = useQuery({
     queryKey: ['resumes'],
     queryFn: getResumes,
   });
 
   const handleCreate = () => {
+    if (!canCreateResume(resumes?.length || 0, !!isPremium)) {
+      router.push('/paywall');
+      return;
+    }
     router.push('/cv/new');
   };
 

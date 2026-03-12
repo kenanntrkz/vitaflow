@@ -71,7 +71,8 @@
     "certName": "Certificate Name",
     "issuer": "Issuer",
     "date": "Date",
-    "summaryPlaceholder": "Write a professional summary..."
+    "summaryPlaceholder": "Write a professional summary...",
+    "skillsHint": "Add skills like \"React\", \"Python\", \"Project Management\""
   },
   "ai": {
     "generate": "AI Generate",
@@ -79,7 +80,11 @@
     "generating": "Generating...",
     "optimizing": "Optimizing...",
     "limitReached": "Daily AI limit reached",
-    "upgradeForMore": "Upgrade to Premium for unlimited AI"
+    "upgradeForMore": "Upgrade to Premium for unlimited AI",
+    "suggestion": "AI Suggestion",
+    "apply": "Apply",
+    "suggestSkills": "AI Suggest Skills",
+    "summaryHint": "AI generates a professional summary from your experience and skills"
   },
   "ats": {
     "title": "ATS Score",
@@ -90,7 +95,15 @@
     "excellent": "Excellent",
     "good": "Good",
     "needsWork": "Needs Work",
-    "poor": "Poor"
+    "poor": "Poor",
+    "contact": "Contact Info",
+    "experienceSection": "Experience",
+    "educationSection": "Education",
+    "skillsSection": "Skills",
+    "formatting": "Formatting",
+    "recheck": "Re-check",
+    "checkDesc": "Check how well your resume performs against ATS systems",
+    "detailedBreakdown": "Detailed Breakdown"
   },
   "preview": {
     "title": "Preview",
@@ -117,7 +130,19 @@
     "feature5": "Clean PDF export",
     "price": "$4.99/month",
     "subscribe": "Subscribe Now",
-    "restore": "Restore Purchases"
+    "restore": "Restore Purchases",
+    "cancelAnytime": "Cancel anytime"
+  },
+  "onboarding": {
+    "slide1Title": "AI-Powered Writing",
+    "slide1Desc": "Let AI craft compelling bullet points, summaries, and descriptions tailored to your career",
+    "slide2Title": "Beat the ATS",
+    "slide2Desc": "Get instant scores and actionable suggestions to pass Applicant Tracking Systems",
+    "slide3Title": "Professional PDF Export",
+    "slide3Desc": "Choose from 10+ stunning templates and export pixel-perfect PDFs instantly",
+    "skip": "Skip",
+    "next": "Next",
+    "getStarted": "Get Started"
   },
   "common": {
     "cancel": "Cancel",

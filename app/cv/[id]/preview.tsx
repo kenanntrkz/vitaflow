@@ -83,6 +83,15 @@ export default function PreviewScreen() {
       </View>
 
       <View style={styles.bottomBar}>
+        {!isPremium && (
+          <Button
+            title="PRO"
+            variant="secondary"
+            onPress={() => router.push('/paywall')}
+            size="sm"
+            style={{ width: 60 }}
+          />
+        )}
         <Button
           title={t('preview.exportPDF')}
           onPress={handleExportPDF}

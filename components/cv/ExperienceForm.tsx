@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
+import { AIAssistButton } from '@/components/ai/AIAssistButton';
 import { useResumeEditorStore } from '@/stores/resumeEditorStore';
 import { theme } from '@/constants/Colors';
 import { generateId } from '@/utils/formatDate';
@@ -60,6 +61,12 @@ export function ExperienceForm() {
             numberOfLines={4}
             style={{ height: 100, textAlignVertical: 'top' }}
             placeholder="Led development of..."
+          />
+          <AIAssistButton
+            section="experience"
+            context={{ jobTitle: exp.position, company: exp.company }}
+            currentText={exp.description}
+            onApply={(text) => updateExperience(exp.id, 'description', text)}
           />
         </Card>
       ))}

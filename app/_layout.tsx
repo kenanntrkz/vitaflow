@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
+import * as SecureStore from 'expo-secure-store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAuthStore } from '@/stores/authStore';
 import '@/i18n';
@@ -19,18 +20,23 @@ const queryClient = new QueryClient({
 export default function RootLayout() {
   const loadSession = useAuthStore((s) => s.loadSession);
   const isLoading = useAuthStore((s) => s.isLoading);
+  const [onboardingDone, setOnboardingDone] = useState<boolean | null>(null);
 
   useEffect(() => {
-    loadSession().finally(() => {
+    Promise.all([
+      loadSession(),
+      SecureStore.getItemAsync('onboarding_done').then((v) => setOnboardingDone(v === 'true')),
+    ]).finally(() => {
       SplashScreen.hideAsync();
     });
   }, []);
 
-  if (isLoading) return null;
+  if (isLoading || onboardingDone === null) return null;
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Stack screenOptions={{ headerShown: false }}>
+      <Stack screenOptions={{ headerShown: false }} initialRouteName={onboardingDone ? '(auth)' : 'onboarding'}>
+        <Stack.Screen name="onboarding" />
         <Stack.Screen name="(auth)" />
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="cv" />
