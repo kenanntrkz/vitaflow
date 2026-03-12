@@ -45,8 +45,10 @@
     },
     "extra": {
       "eas": {
-        "projectId": "vitaflow"
-      }
-    }
+        "projectId": "0d10782a-bddf-4f4d-ada8-ba172b634432"
+      },
+      "router": {}
+    },
+    "owner": "kenantrkz"
   }
 }
