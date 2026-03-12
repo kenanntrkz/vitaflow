@@ -1,83 +1,121 @@
-import { TouchableOpacity, Text, StyleSheet, ActivityIndicator, ViewStyle, TextStyle } from 'react-native';
-import { theme } from '@/constants/Colors';
+import { TouchableOpacity, Text, StyleSheet, ActivityIndicator, ViewStyle, TextStyle, View } from 'react-native';
+import { theme, radius } from '@/constants/Colors';
 
 interface ButtonProps {
   title: string;
   onPress: () => void;
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
   size?: 'sm' | 'md' | 'lg';
   loading?: boolean;
   disabled?: boolean;
   icon?: React.ReactNode;
   style?: ViewStyle;
+  fullWidth?: boolean;
 }
 
-export function Button({ title, onPress, variant = 'primary', size = 'md', loading, disabled, icon, style }: ButtonProps) {
-  const buttonStyle = [
+export function Button({ title, onPress, variant = 'primary', size = 'md', loading, disabled, icon, style, fullWidth }: ButtonProps) {
+  const isDisabled = disabled || loading;
+
+  const buttonStyle: ViewStyle[] = [
     styles.base,
-    styles[variant],
-    styles[`size_${size}`],
-    (disabled || loading) && styles.disabled,
-    style,
+    variantStyles[variant],
+    sizeStyles[size],
+    isDisabled && styles.disabled,
+    fullWidth && { width: '100%' } as ViewStyle,
+    style as ViewStyle,
   ];
 
-  const textStyle: TextStyle[] = [
-    styles.text,
-    styles[`text_${variant}`],
-    styles[`textSize_${size}`],
-  ];
+  const textColor = textColors[variant];
+  const textStyle: TextStyle = {
+    ...styles.text,
+    ...textSizeStyles[size],
+    color: textColor,
+  };
 
   return (
     <TouchableOpacity
       style={buttonStyle}
       onPress={onPress}
-      disabled={disabled || loading}
-      activeOpacity={0.7}
+      disabled={isDisabled}
+      activeOpacity={0.8}
     >
       {loading ? (
-        <ActivityIndicator color={variant === 'primary' ? '#fff' : theme.primary} size="small" />
+        <ActivityIndicator color={textColor} size="small" />
       ) : (
-        <>
+        <View style={styles.inner}>
           {icon}
           <Text style={textStyle}>{title}</Text>
-        </>
+        </View>
       )}
     </TouchableOpacity>
   );
 }
+
+const textColors: Record<string, string> = {
+  primary: '#FFFFFF',
+  secondary: '#FFFFFF',
+  outline: theme.primary,
+  ghost: theme.primary,
+  danger: theme.error,
+};
+
+const variantStyles: Record<string, ViewStyle> = {
+  primary: {
+    backgroundColor: theme.primary,
+    shadowColor: theme.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  secondary: {
+    backgroundColor: theme.secondary,
+    shadowColor: theme.secondary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  outline: {
+    backgroundColor: 'transparent',
+    borderWidth: 1.5,
+    borderColor: theme.border,
+  },
+  ghost: {
+    backgroundColor: 'transparent',
+  },
+  danger: {
+    backgroundColor: theme.errorLight,
+  },
+};
+
+const sizeStyles: Record<string, ViewStyle> = {
+  sm: { paddingVertical: 8, paddingHorizontal: 16, borderRadius: radius.sm },
+  md: { paddingVertical: 13, paddingHorizontal: 22, borderRadius: radius.md },
+  lg: { paddingVertical: 16, paddingHorizontal: 28, borderRadius: radius.md },
+};
+
+const textSizeStyles: Record<string, TextStyle> = {
+  sm: { fontSize: 13 },
+  md: { fontSize: 15 },
+  lg: { fontSize: 17 },
+};
 
 const styles = StyleSheet.create({
   base: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 12,
+    borderRadius: radius.md,
+  },
+  inner: {
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 8,
   },
-  primary: {
-    backgroundColor: theme.primary,
-  },
-  secondary: {
-    backgroundColor: theme.secondary,
-  },
-  outline: {
-    backgroundColor: 'transparent',
-    borderWidth: 1.5,
-    borderColor: theme.primary,
-  },
-  ghost: {
-    backgroundColor: 'transparent',
-  },
-  size_sm: { paddingVertical: 8, paddingHorizontal: 16 },
-  size_md: { paddingVertical: 14, paddingHorizontal: 24 },
-  size_lg: { paddingVertical: 18, paddingHorizontal: 32 },
   disabled: { opacity: 0.5 },
-  text: { fontWeight: '600' },
-  text_primary: { color: '#FFFFFF' },
-  text_secondary: { color: '#FFFFFF' },
-  text_outline: { color: theme.primary },
-  text_ghost: { color: theme.primary },
-  textSize_sm: { fontSize: 14 },
-  textSize_md: { fontSize: 16 },
-  textSize_lg: { fontSize: 18 },
+  text: {
+    fontWeight: '700',
+    letterSpacing: 0.2,
+  },
 });

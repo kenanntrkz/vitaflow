@@ -4,7 +4,7 @@ import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { setItem } from '@/utils/storage';
 import { Button } from '@/components/ui/Button';
-import { theme } from '@/constants/Colors';
+import { theme, spacing } from '@/constants/Colors';
 
 const { width } = Dimensions.get('window');
 
@@ -14,21 +14,24 @@ const SLIDES = [
     icon: '🤖',
     titleKey: 'onboarding.slide1Title',
     descKey: 'onboarding.slide1Desc',
-    color: theme.primary,
+    gradient: ['#2563EB', '#3B82F6'],
+    bgColor: '#EFF6FF',
   },
   {
     key: 'ats',
     icon: '📊',
     titleKey: 'onboarding.slide2Title',
     descKey: 'onboarding.slide2Desc',
-    color: theme.secondary,
+    gradient: ['#7C3AED', '#8B5CF6'],
+    bgColor: '#F5F3FF',
   },
   {
     key: 'pdf',
     icon: '📄',
     titleKey: 'onboarding.slide3Title',
     descKey: 'onboarding.slide3Desc',
-    color: theme.success,
+    gradient: ['#10B981', '#34D399'],
+    bgColor: '#ECFDF5',
   },
 ];
 
@@ -54,7 +57,7 @@ export default function OnboardingScreen() {
 
   const renderSlide = ({ item }: { item: typeof SLIDES[0] }) => (
     <View style={[styles.slide, { width }]}>
-      <View style={[styles.iconContainer, { backgroundColor: item.color + '15' }]}>
+      <View style={[styles.iconContainer, { backgroundColor: item.bgColor }]}>
         <Text style={styles.icon}>{item.icon}</Text>
       </View>
       <Text style={styles.slideTitle}>{t(item.titleKey)}</Text>
@@ -64,12 +67,14 @@ export default function OnboardingScreen() {
 
   return (
     <View style={styles.container}>
+      {/* Skip */}
       <View style={styles.skipContainer}>
         {currentIndex < SLIDES.length - 1 && (
           <Button title={t('onboarding.skip')} variant="ghost" onPress={handleSkip} size="sm" />
         )}
       </View>
 
+      {/* Slides */}
       <FlatList
         ref={flatListRef}
         data={SLIDES}
@@ -87,35 +92,45 @@ export default function OnboardingScreen() {
         }}
       />
 
+      {/* Footer */}
       <View style={styles.footer}>
+        {/* Dots */}
         <View style={styles.dots}>
-          {SLIDES.map((_, i) => {
+          {SLIDES.map((slide, i) => {
             const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
             const dotWidth = scrollX.interpolate({
               inputRange,
-              outputRange: [8, 24, 8],
+              outputRange: [8, 28, 8],
               extrapolate: 'clamp',
             });
             const opacity = scrollX.interpolate({
               inputRange,
-              outputRange: [0.3, 1, 0.3],
+              outputRange: [0.25, 1, 0.25],
               extrapolate: 'clamp',
             });
             return (
               <Animated.View
                 key={i}
-                style={[styles.dot, { width: dotWidth, opacity, backgroundColor: theme.primary }]}
+                style={[styles.dot, {
+                  width: dotWidth,
+                  opacity,
+                  backgroundColor: slide.gradient[0],
+                }]}
               />
             );
           })}
         </View>
 
+        {/* CTA */}
         <Button
           title={currentIndex === SLIDES.length - 1 ? t('onboarding.getStarted') : t('onboarding.next')}
           onPress={handleNext}
-          style={{ width: '100%' }}
           size="lg"
+          fullWidth
         />
+
+        {/* Brand footer */}
+        <Text style={styles.brandFooter}>VitaFlow</Text>
       </View>
     </View>
   );
@@ -124,27 +139,30 @@ export default function OnboardingScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: theme.surface },
   skipContainer: {
-    paddingTop: 56, paddingHorizontal: 16, alignItems: 'flex-end', height: 96,
+    paddingTop: 56, paddingHorizontal: 20, alignItems: 'flex-end', height: 96,
   },
   slide: {
-    flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 40,
+    flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 44,
   },
   iconContainer: {
-    width: 120, height: 120, borderRadius: 60,
-    justifyContent: 'center', alignItems: 'center', marginBottom: 40,
+    width: 120, height: 120, borderRadius: 36,
+    justifyContent: 'center', alignItems: 'center', marginBottom: 36,
   },
-  icon: { fontSize: 56 },
+  icon: { fontSize: 52 },
   slideTitle: {
-    fontSize: 28, fontWeight: '800', color: theme.text,
-    textAlign: 'center', marginBottom: 16,
+    fontSize: 26, fontWeight: '800', color: theme.text,
+    textAlign: 'center', marginBottom: 12, letterSpacing: -0.3,
   },
   slideDesc: {
     fontSize: 16, color: theme.textSecondary,
-    textAlign: 'center', lineHeight: 24,
+    textAlign: 'center', lineHeight: 24, paddingHorizontal: 8,
   },
   footer: {
-    paddingHorizontal: 32, paddingBottom: 48, alignItems: 'center', gap: 24,
+    paddingHorizontal: 32, paddingBottom: 48, alignItems: 'center', gap: 20,
   },
   dots: { flexDirection: 'row', gap: 6, alignItems: 'center' },
-  dot: { height: 8, borderRadius: 4 },
+  dot: { height: 6, borderRadius: 3 },
+  brandFooter: {
+    fontSize: 13, fontWeight: '600', color: theme.textTertiary, letterSpacing: 1,
+  },
 });
